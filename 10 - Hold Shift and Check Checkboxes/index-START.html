@@ -104,6 +104,63 @@
   </div>
 
 <script>
+  /*let shiftPressed = false;
+  let lastChanged = -1;
+
+  function boxChecked(e) {
+    let indexChanged = parseInt(e.target.dataset.index);
+    console.log(e);
+    const firstBox = indexChanged < lastChanged ? indexChanged : lastChanged;
+    const lastBox = indexChanged > lastChanged ? indexChanged : lastChanged;
+
+    if(shiftPressed && indexChanged != -1){
+      for(var i = firstBox; i <lastBox; i++) {
+          checkboxes[i].checked = e.target.checked;
+      }
+    }
+
+    lastChanged = indexChanged;
+  }
+
+  function keyPressed(e) {
+      console.log(e);
+      if(e.keyCode === 16 && e.type === 'keydown')
+          shiftPressed = true;
+      else
+          shiftPressed = false;
+  }
+  const checkboxes = Array.from(document.querySelectorAll('input'));
+  let index = 0;
+  checkboxes.map(cb => {
+      cb.setAttribute('data-index', index++);
+      cb.addEventListener('change', boxChecked);
+      cb.addEventListener('keydown', keyPressed);
+      cb.addEventListener('keyup', keyPressed);
+  });*/
+
+  // WESBOS
+  let lastChecked;
+
+  function handleCheck(e) {
+      let inBetween = false;
+      if(e.shiftKey && this.checked) {
+          checkboxes.forEach(checkbox => {
+             if(checkbox === this || checkbox === lastChecked) {
+                 inBetween = !inBetween;
+             }
+
+             if(inBetween) {
+                 checkbox.checked = true;
+             }
+          });
+      }
+
+      lastChecked = this;
+  }
+
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"');
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
 </script>
 </body>
 </html>
